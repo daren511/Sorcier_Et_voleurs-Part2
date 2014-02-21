@@ -1,52 +1,106 @@
-final public class Voleur extends Personnage {
+public final class Voleur extends Personnage implements Comparable {
+   // Déclaration des variables privées
+   private int nbLarcins_ = 0;
+   private int comparaisonSexe = 0;	// Compare les sexes (femme = 1 homme = 2)
+   static private int nbVoleurs_ = 0;
 
-   //Variable static pour le nombre de voleurs
-   static private int nbVoleur = 0;
-
-   //Déclaration privée du nbLarcins
-   private int nbLarcins;
-
-   //Constructeur 3 params
-   public Voleur(String nom,char sexe,int nbLarcins){
-      super (nom,sexe);
-      this.nbLarcins = nbLarcins;
-      this.nbVoleur++;
-   }
-   //Constructeur 2 params
-   public Voleur(String nom,char sexe){
-      super (nom,sexe);
-      this.nbLarcins = 0;
-      this.nbVoleur++;
-
-   }
-   // Function ToString de concaténation pour resultat final
-   public String toString(){
-      String chaine = "";
-      if(getSexe() == 'M' || getSexe() == 'm'){
-         chaine = "Mon nom est " + super.getNom() + " et je suis un voleur ayant commis " + getNbLarcins() + " larcin(s).";
-      }
-      else if(getSexe() == 'F' || getSexe() == 'f'){
-         chaine = "Mon nom est " + super.getNom() + " et je suis une voleuse ayant commis " + getNbLarcins() + " larcin(s).";
-      }
-      return chaine;
+   // Constructeur à 3 attributs
+   public Voleur(String nom, char sexe, int nbLarcins)
+   {
+   		setNom(nom);
+		setSexe(sexe);
+		setNbLarcins(nbLarcins);
+		nbVoleurs_++;
    }
 
-   //Getter NbVoleurs
-   static public int getNbVoleurs(){
-      return nbVoleur;
+   // Constructeur à 2 attributs
+   public Voleur(String nom, char sexe)
+   {
+   		setNom(nom);
+		setSexe(sexe);
+		setNbLarcins(nbLarcins_);
+		nbVoleurs_++;
    }
-   //Getter NbLarcins
-   public int getNbLarcins(){
-      return nbLarcins;
+
+   // Modifie le nombre de larcins selon le nombre en paramètre
+   private void setNbLarcins(int nbLarcins)
+   {
+   		if (nbLarcins >= 0)
+   			nbLarcins_ = nbLarcins;
    }
-   // Incrémentation NbLarcins
-   public void incNbLarcins(){
-      nbLarcins++;
+
+   // Incrémentation le nombre de larcins
+   public void incNbLarcins()
+   {
+   		nbLarcins_++;
    }
-   //surchage de loperateur equals pour regarder les voleurs
+
+   // Retourne le nombre de voleurs
+   static public int getNbVoleurs()
+   {
+   		return nbVoleurs_;
+   }
+
+   // Retourne le nombre de larcins
+   private int getNbLarcins()
+   {
+   		return nbLarcins_;
+   }
+
+   // Affiche le voleur selon son sexe
+   public String toString()
+   {
+   		String sexe = "un voleur";
+
+   		if (getSexe() == 'F')
+   			sexe = "une voleuse";
+
+   		return "Mon nom est " + getNom() + " et je suis " + sexe + " ayant commis " + getNbLarcins() + " larcin(s)";
+   }
+
+    // Compare les sexes des voleurs pour déterminer le plus fort (femelle < mâle)
+   	private int comparerSexe (Object objet)
+   	{
+   		Voleur o = (Voleur)objet;
+   		if(o.getSexe() == 'F')
+   			comparaisonSexe = 1;
+
+   		if(o.getSexe() == 'M')
+   			comparaisonSexe = 2;
+
+   		return comparaisonSexe;
+   	}
+
+   // Surcharge de equals() pour comparer le nombre de larcins
    @Override
    public boolean equals(Object objet)
    {
-     return objet.equals(getNbLarcins());
+       return objet.equals(getNbLarcins());
+   }
+
+   // Surcharge de compareTo() pour comparer les voleurs
+   @Override
+   public int compareTo(Object objet)
+   {
+   		Voleur o = (Voleur)objet;
+   		int resultat = 0;
+
+   		if(this.getNbLarcins() < o.getNbLarcins())
+   			resultat = -1;
+
+   		if(this.getNbLarcins() == o.getNbLarcins())
+    	{
+    		if (comparerSexe(this) < comparerSexe(o))
+    			resultat = -1;
+    		if (comparerSexe(this) == comparerSexe(o))
+    			resultat = 0;
+    		if (comparerSexe(this) > comparerSexe(o))
+    			resultat = 1;
+    	}
+
+    	if(this.getNbLarcins() > o.getNbLarcins())
+   			resultat = 1;
+
+   		return resultat;
    }
 }

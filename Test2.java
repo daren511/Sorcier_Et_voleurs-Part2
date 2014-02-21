@@ -1,14 +1,3 @@
-/////////////////////////////////////////////////
-// S O R C I E R S _ E T _ V O L E U R S
-/////////////////////////////////////////////////
-// Fait par: Alexis Lalonde
-// Le 24 février 2014
-// But: jeu fantastique dans lequel évolue des
-//      personnages
-/////////////////////////////////////////////////
-// Test2.java
-/////////////////////////////////////////////////
-
 public class Test2
 {
    static final int MAX_PERSONNAGES = 10;
@@ -37,9 +26,8 @@ public class Test2
       pers[ 8 ] = new Voleur(  "Borlog",    'M',  7 );
       pers[ 9 ] = new Voleur(  "Garouche",  'F',  7 );
 
-      //
-      // tests de comparaison
-      //
+
+      // tests pour les comparaisons
       int n = 0;
       int comparaison;
 

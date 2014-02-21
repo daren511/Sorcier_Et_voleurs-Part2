@@ -1,33 +1,34 @@
-public abstract class Personnage{
+public abstract class Personnage implements Comparable {
+   // Déclaration des variables privées
+   private String nom_;
+   private char sexe_;
 
-   //Déclaration privée du nom / Sexe
-   private String nom;
-   private char sexe;
-   
-   // Constructeur 2 params
-   public Personnage(String nom,char sexe){
-      setNom(nom);
-      setSexe(sexe);
+   // Modifie le nom avec celui en param
+   public void setNom(String nom)
+   {
+   		if (!nom.trim().isEmpty())
+   			nom_ = nom;
    }
-   //Setter du sexe
-   public void setSexe(char sexe){
-      if(sexe == 'M'|| sexe == 'm' || sexe=='f'|| sexe =='F'){
-         this.sexe = sexe;
-      }
+
+   // Modifie le sexe selon le sexe en param
+   public void setSexe(char sexe)
+   {
+   		if (sexe == 'M' || sexe == 'F')
+   			sexe_ = sexe;
    }
-   //Getter du sexe
-   public char getSexe(){
-      return sexe;
+
+   // Retourn le nom du personnage
+   public String getNom()
+   {
+   		return nom_;
    }
-   //Getter du nom
-   public String getNom(){
-      return nom;
+
+   // Retourne le sexe du personnage
+   public char getSexe()
+   {
+   		return sexe_;
    }
-   //Setter du Nom
-   public void setNom(String nom){
-      //verifie si le nom est pas seulement des espace blancs
-      if(nom.trim().length() > 0){
-         this.nom = nom;
-      }
-   }
+
+   // Comparaison des personnages
+   public abstract int compareTo(Object objet);
 }
